@@ -1,9 +1,10 @@
 from rest_framework import serializers
-from . import models 
+from users.models import User
+from cars import models 
 
 class UserCarSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
-        queryset = models.User.objects.all(),
+        queryset = User.objects.all(),
         many=False,
         slug_field='username'
     )
@@ -14,7 +15,17 @@ class UserCarSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = models.UserCar
-        fields = '__all__'
+        fields = (
+            'id',
+            'user',
+            'car_brand',
+            'car_model',
+            'first_reg',
+            'odometer',
+            'created_at',
+            'update_at',
+            'deleted_at'
+        )
         read_only_fields = ['update_at', 'deleted_at', 'created_at']
 
 class CarModelSerializer(serializers.ModelSerializer):
@@ -52,19 +63,3 @@ class CarBrandSerializer(serializers.ModelSerializer):
             'deleted_at',
         )
         read_only_fields = ['update_at', 'deleted_at', 'created_at']
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.User
-        fields = (
-            'id',
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'is_staff',
-            'created_at',
-            'update_at',
-            'deleted_at',
-        )
-

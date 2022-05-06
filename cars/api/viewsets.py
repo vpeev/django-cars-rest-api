@@ -1,11 +1,6 @@
 from rest_framework import viewsets
-
-from . import models, serializers
-
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = models.User.objects.all()
-    serializer_class = serializers.UserSerializer
-    filterset_fields = ['username', 'first_name', 'last_name', 'email', 'is_staff']
+from cars import models
+from . import serializers
 
 class CarBrandViewSet(viewsets.ModelViewSet):
     queryset = models.CarBrand.objects.all()
