@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from users.models import User
-from cars import models 
+from cars.models import CarBrand, CarModel, UserCar
 
 class UserCarSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
@@ -9,12 +9,17 @@ class UserCarSerializer(serializers.ModelSerializer):
         slug_field='username'
     )
     car_brand = serializers.SlugRelatedField(
-        queryset = models.CarBrand.objects.all(),
+        queryset = CarBrand.objects.all(),
+        many=False,
+        slug_field='name'
+    )
+    car_model = serializers.SlugRelatedField(
+        queryset = CarModel.objects.all(),
         many=False,
         slug_field='name'
     )
     class Meta:
-        model = models.UserCar
+        model = UserCar
         fields = (
             'id',
             'user',
@@ -30,12 +35,12 @@ class UserCarSerializer(serializers.ModelSerializer):
 
 class CarModelSerializer(serializers.ModelSerializer):
     car_brand = serializers.SlugRelatedField(
-        queryset = models.CarBrand.objects.all(),
+        queryset = CarBrand.objects.all(),
         many=False,
         slug_field='name',
     )
     class Meta:
-        model = models.CarModel
+        model = CarModel
         fields = (
             'id',
             'name',
@@ -53,7 +58,7 @@ class CarBrandSerializer(serializers.ModelSerializer):
         read_only=True
     )
     class Meta:
-        model = models.CarBrand
+        model = CarBrand
         fields = (
             'id',
             'name',

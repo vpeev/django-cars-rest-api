@@ -1,0 +1,20 @@
+{% extends 'users/home.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="row py-4 justify-content-center" style="min-height: 100vh;">
+            <h2 class="text-center my-auto" style="height: fit-content;">Login form</h2>
+            <form method="post" class="w-75 my-3">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-success">Login</button>
+                </div>
+            </form>
+            <div class="w-75 d-flex justify-content-between">
+                <a href="{% url 'home' %}">Go to the home page</a>
+                <a href="{% url 'register' %}" class="text-end">Don't have an account?</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

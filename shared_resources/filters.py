@@ -1,5 +1,4 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from requests import delete
 
 class NotDeletedObjects(DjangoFilterBackend):
     def filter_queryset(self, request, queryset, view):
